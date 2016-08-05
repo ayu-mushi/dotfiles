@@ -1,0 +1,9 @@
+g:          file:///cgi-bin/google.cgi?%s
+google:     file:///cgi-bin/google.cgi?%s
+ttp:        h%s
+ttps:       h%s
+e:          file:/cgi-bin/goodict.cgi?%s
+xsel:       file:///cgi-bin/xu.cgi
+s:          file:///cgi-bin/googlescholar.cgi?%s
+git:        %s
+
