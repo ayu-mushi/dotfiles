@@ -53,7 +53,7 @@ bindkey "^N" history-beginning-search-forward-end
 export LESS="-R"
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 
-export PATH=/opt/mozart/bin/:/usr/local/ghc-7.10/bin:/usr/local/ghc-7.8.4/bin:/usr/local/ghc-7.10.2/bin/:/usr/local/bin:~/.local/bin:/opt/local/bin:/usr/local/ghc-7.8/bin:~/.cabal/bin/:$PATH
+export PATH=/usr/local/lib/anaconda2/bin/:/opt/mozart/bin/:/usr/local/ghc-7.10/bin:/usr/local/ghc-7.8.4/bin:/usr/local/ghc-7.10.2/bin/:/usr/local/bin:~/.local/bin:/opt/local/bin:/usr/local/ghc-7.8/bin:~/.cabal/bin/:$PATH
 alias vim="/usr/local/bin/vim"
 alias emacs="emacs -nw"
 export ncc="mono /opt/nemerle/ncc.exe"
