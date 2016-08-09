@@ -1,8 +1,8 @@
-dotfiles
+Dotfiles
 =========
 Config files
 
-###vim
+###Vim
 * .vimrc
 
 ###zsh
@@ -12,6 +12,6 @@ Config files
 * keymap
 * urimethodmap
 
-license
+License
 ----
 files in this repository "dotfiles" is applied under CC0.
