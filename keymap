@@ -24,7 +24,32 @@ keymap R EXTERN "/usr/bin/env perl ~/.w3m/hatebu.pl '%s'"
 keymap C CHARSET
 
 # "w3mで快適ブラウジング - ひゃまだのブログ" https://sites.google.com/site/hymd3a/linux/w3m
-keymap A EXEC_SHELL "printenv |ag 'W3M_URL|W3M_TITLE' | nkf -w | vim -"
+keymap A EXEC_SHELL "w3m_commentary.sh"
+#現在カーソルの置かれている語("W3M_CURRENT_WORD")に、英語辞書(https://gist.github.com/ayu-mushi/1cc60431d1bd78d273df)を適用
+keymap O EXEC_SHELL "je $(printenv | ag 'W3M_CURRENT_WORD' | sed -e 's/^W3M_CURRENT_WORD\=\([^<]\)/\1/')"
 
+keymap PD EXTERN_LINK "qpdfview --unique --instance a $(echo %s | perl -pe 's/file:\/\///g')"
+
+#YouTube
+keymap y EXTERN_LINK "echo %s | sed -e 's/&.*$//g'| xargs youtube-dl -g | xargs vlc --play-and-exit &"
+
+#YouTubeの動画の音声のみを聞く
+keymap m EXTERN_LINK "echo %s | sed -e 's/&.*$//g'| xargs youtube-dl -o ~/music/temp_music_video && ffmpeg -y -i ~/music/temp_music_video ~/music/temp.mp3; rm ~/music/temp_music_video; mpg321 -g 2 ~/music/temp.mp3 &"
+
+#ニコ動
+keymap Y EXTERN_LINK "nicovideo-dl -n -o ~/movie/temp.flv %s && vlc --play-and-exit ~/movie/temp.flv &"
+
+#ニコ動の音声のみを聞く
+keymap X EXTERN_LINK "nicovideo-dl -n -o ~/music/temp_music_video %s && ffmpeg -y -i ~/music/temp_music_video ~/music/temp.mp3; mpg321 -g 20 ~/music/temp.mp3; rm ~/music/temp_music_video &"
+
+keymap HA EXTERN "hateinfo %s && read YES"
+#誤爆防止
+keymap Q NULL
+keymap R EXTERN "/usr/bin/env perl ~/.w3m/hatebu.pl '%s'"
+
+keymap C CHARSET
+
+# "w3mで快適ブラウジング - ひゃまだのブログ" https://sites.google.com/site/hymd3a/linux/w3m
+keymap A EXEC_SHELL "w3m_commentary.sh"
 #現在カーソルの置かれている語("W3M_CURRENT_WORD")に、英語辞書(https://gist.github.com/ayu-mushi/1cc60431d1bd78d273df)を適用
 keymap O EXEC_SHELL "je $(printenv | ag 'W3M_CURRENT_WORD' | sed -e 's/^W3M_CURRENT_WORD\=\([^<]\)/\1/')"
