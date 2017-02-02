@@ -10,4 +10,5 @@ ln -sf ~/Dropbox/dotfiles/newsbeutconf ~/.newsbeuter/config
 ln -sf ~/Dropbox/dotfiles/.zsh_history* ~
 ln -sf ~/Dropbox/dotfiles/.emacs ~
 ln -sf ~/Dropbox/dotfiles/.xsessionrc ~
+ln -sf ~/Dropbox/dotfiles/xmonad.hs ~/.xmonad/xmonad.hs
 source ~/.zshrc
