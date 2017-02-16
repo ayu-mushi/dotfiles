@@ -6,4 +6,4 @@ e:          file:/cgi-bin/goodict.cgi?%s
 xsel:       file:///cgi-bin/xu.cgi
 s:          file:///cgi-bin/googlescholar.cgi?%s
 git:        %s
-
+doi:        http://dx.doi.org/%s
