@@ -12,7 +12,7 @@ import Data.Monoid
 import System.Exit
 
 import System.IO
-import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicLog hiding (def)
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run (spawnPipe)
 
@@ -272,9 +272,9 @@ main = do
 -- No need to modify this.
 --
 
-def = defaultConfig
+-- def = defaultConfig
 
-defaults mLH = def {
+defaults mLH = defaultConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,

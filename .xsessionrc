@@ -1,2 +1,2 @@
 xmodmap ~/.xmodmap
-dropbox start
+python /usr/local/bin/dropbox start
