@@ -7,3 +7,4 @@ xsel:       file:///cgi-bin/xu.cgi
 s:          file:///cgi-bin/googlescholar.cgi?%s
 git:        %s
 doi:        http://dx.doi.org/%s
+cgi: file:///cgi-bin/%s
