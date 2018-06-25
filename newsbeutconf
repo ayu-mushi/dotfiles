@@ -1,0 +1,5 @@
+browser w3m %u
+auto-reload yes
+
+bind-key k up
+bind-key j down
