@@ -8,3 +8,4 @@ s:          file:///cgi-bin/googlescholar.cgi?%s
 git:        %s
 doi:        http://dx.doi.org/%s
 cgi: file:///cgi-bin/%s
+arc: http://web.archive.org/web/%s
