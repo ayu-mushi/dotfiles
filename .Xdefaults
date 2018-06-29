@@ -29,8 +29,8 @@ URxvt.lineSpace:            0
 ! Fonts
 URxvt.allow_bold:           false
 /* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
-URxvt*font: xft:monospace:pixelsize=16
-URxvt*boldFont: xft:monospace:pixelsize=16
+URxvt*font: xft:monospace:pixelsize=20, xft:VL Gothic:pixelsize=20,xft:Ricty:Normal:size=18:antialias=true, xft:monospace,  \
+            xft:DejaVu Sans Mono:size=13, xft:Noto Emoji:minspace=False
 
 ! Fix font space
 URxvt*letterSpace: -1
@@ -109,3 +109,8 @@ URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
 URxvt.mouseWheelScrollPage: true
+
+urxvt.perl-ext: xim-onthespot
+urxvt.inputMethod: fcitx
+urxvt.preeditType: OnTheSpot
+URxvt*urgentOnBell: true
