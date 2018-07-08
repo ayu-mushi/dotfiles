@@ -1,2 +1,7 @@
 xmodmap ~/.xmodmap
 python /usr/local/bin/dropbox start
+stalonetray &
+nm-applet &
+volumeicon&
+nitrogen --restore&
+fcitx-autostart&

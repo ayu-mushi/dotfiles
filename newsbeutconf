@@ -1,4 +1,4 @@
-browser w3m %u
+browser x-www-browser %u
 auto-reload yes
 
 bind-key k up
