@@ -184,9 +184,13 @@ myKeys isInConc conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ let window
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
     --
-    [((m .|. modm, k), windows_frzabl $ f i)
+    [((modm, k), windows_frzabl $ W.greedyView i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+      ]
+    ++
+    [((shiftMask .|. modm, k), windows $ W.shift i)
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+      ]
     ++
     -- shiftの場合はfrzableじゃなくていいんだけど…
 
