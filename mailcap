@@ -1,6 +1,6 @@
 audio/midi; timidity -A20 %s
 application/pdf; qpdfview --unique --instance a %s
-image/jpeg; eog %s
-image/png; eog %s
-image/gif; eog %s
+image/jpeg; display %s
+image/png; display %s
+image/gif; display %s
 text/xml; vim %s

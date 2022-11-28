@@ -29,6 +29,7 @@ URxvt.lineSpace:            0
 ! Fonts
 URxvt.allow_bold:           false
 /* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
+
 URxvt*font: xft:monospace:pixelsize=20, xft:VL Gothic:pixelsize=20,xft:Ricty:Normal:size=18:antialias=true, xft:monospace,  \
             xft:DejaVu Sans Mono:size=13, xft:Noto Emoji:minspace=False
 
@@ -52,19 +53,17 @@ URxvt.cursorUnderline:      false
 ! Pointer
 URxvt.pointerBlank:         true
 
-!!Source http://github.com/altercation/solarized
+*background: #fdf6e3
+*foreground: #839496
 
-*background: #002b36
-*foreground: #657b83
-!!*fading: 40
-*fadeColor: #002b36
-*cursorColor: #93a1a1
-*pointerColorBackground: #586e75
-*pointerColorForeground: #93a1a1
+*fadeColor: #fdf6e3
+*cursorColor: #586e75
+! *pointerColorBackground: #93a1a1
+*pointerColor: #586e75
 
 !! black dark/light
-*color0: #073642
-*color8: #002b36
+*color0: #eee8d5
+*color8: #fdf6e3
 
 !! red dark/light
 *color1: #dc322f
@@ -72,15 +71,15 @@ URxvt.pointerBlank:         true
 
 !! green dark/light
 *color2: #859900
-*color10: #586e75
+*color10: #93a1a1
 
 !! yellow dark/light
 *color3: #b58900
-*color11: #657b83
+*color11: #839496
 
 !! blue dark/light
 *color4: #268bd2
-*color12: #839496
+*color12: #657b83
 
 !! magenta dark/light
 *color5: #d33682
@@ -88,11 +87,11 @@ URxvt.pointerBlank:         true
 
 !! cyan dark/light
 *color6: #2aa198
-*color14: #93a1a1
+*color14: #586e75
 
 !! white dark/light
-*color7: #eee8d5
-*color15: #fdf6e3
+*color7: #073642
+*color15: #002b36
 
 URxvt.perl-lib: /home/ayu-mushi/.urxvt/urxvt-perls
 URxvt.perl-ext-common: clipboard

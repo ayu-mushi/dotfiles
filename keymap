@@ -5,10 +5,10 @@ keymap C-u EXTERN "echo %s | xsel --clipboard --input"
 keymap x EXTERN_LINK "echo %s | xsel --clipboard --input"
 
 #YouTube
-keymap y EXTERN_LINK "echo %s | sed -e 's/&.*$//g'| xargs youtube-dl -g | xargs vlc --play-and-exit &"
+keymap y EXTERN "echo %s | sed -e 's/&.*$//g'| xargs vlc &"
 
 #YouTubeの動画の音声のみを聞く
-keymap m EXTERN_LINK "echo %s | sed -e 's/&.*$//g'| xargs youtube-dl -o ~/music/temp_music_video && ffmpeg -y -i ~/music/temp_music_video* ~/music/temp.mp3; rm ~/music/temp_music_video*; mpg321 -g 2 ~/music/temp.mp3 &"
+keymap m EXTERN "echo %s | sed -e 's/&.*$//g'| xargs youtube-dl -o ~/music/temp_music_video && ffmpeg -y -i ~/music/temp_music_video* ~/music/temp.mp3; rm ~/music/temp_music_video*; mpg321 -g 2 ~/music/temp.mp3 &"
 
 #ニコ動
 keymap Y EXTERN_LINK "nicovideo-dl -n -o ~/movie/temp.flv %s && vlc --play-and-exit ~/movie/temp.flv &"
@@ -41,3 +41,4 @@ keymap C CHARSET
 keymap A EXEC_SHELL "w3m_commentary.py"
 #現在カーソルの置かれている語("W3M_CURRENT_WORD")に、英語辞書(https://gist.github.com/ayu-mushi/1cc60431d1bd78d273df)を適用
 keymap O EXEC_SHELL "je $(printenv | ag 'W3M_CURRENT_WORD' | sed -e 's/^W3M_CURRENT_WORD\=\([^<]\)/\1/')"
+#keymap au EXEC_SHELL "pronun $(printenv | ag 'W3M_CURRENT_WORD' | sed -e 's/^W3M_CURRENT_WORD\=\([^<]\)/\1/')"

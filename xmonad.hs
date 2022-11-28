@@ -1,3 +1,4 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 --
 -- xmonad example config file.
 --
@@ -40,7 +41,7 @@ import XMonad.Util.Run
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "urxvt"
+myTerminal      = "gnome-terminal --zoom=1.2"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -68,7 +69,7 @@ myModMask       = mod4Mask
 --
 -- A tagging example:
 --
-myWorkspaces = ["w3m", "browser", "code", "doc", "music" ] ++ map show [6..8] ++ ["trash"]
+myWorkspaces = ["w3m", "browser", "code", "doc"] ++ map show [5] ++ ["trash"]
 --
 --myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
@@ -80,12 +81,12 @@ myFocusedBorderColor = "#ff0000"
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys isInConc conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ let windows_frzabl = myWindows isInConc in
+myKeys (isInConc::MVar Int) conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ let windows_frzabl = myWindows isInConc in
 
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-    , ((0, xF86XK_MonBrightnessUp), spawn "light -A 1") -- #define XF86XK_MonBrightnessUp   0x1008FF02  /* Monitor/panel brightness */ -- https://github.com/haikarainen/light
-    , ((0, xF86XK_MonBrightnessDown), spawn "light -U 1") -- #define XF86XK_MonBrightnessDown 0x1008FF03  /* Monitor/panel brightness */
+    , ((0, xF86XK_MonBrightnessUp), spawn "light -A 2") -- #define XF86XK_MonBrightnessUp   0x1008FF02  /* Monitor/panel brightness */ -- https://github.com/haikarainen/light
+    , ((0, xF86XK_MonBrightnessDown), spawn "light -U 2") -- #define XF86XK_MonBrightnessDown 0x1008FF03  /* Monitor/panel brightness */
     , ((0, xF86XK_AudioMute), spawn "amixer -q -D pulse sset Master toggle") -- #define XF86XK_AudioMute	0x1008FF12   /* Mute sound from the system */
     , ((modm, xK_Print), spawn "gnome-screenshot --area") -- xK_Print does not work.
     --, ((modm, 0xFF61), spawn "gnome-screenshot --area")
@@ -94,12 +95,16 @@ myKeys isInConc conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ let window
     --, ((modm, xK_s), toggleSaveState)
     , ((modm, xK_s), io $ do
         i <- readMVar isInConc
-        when (not i) $ do
-          modifyMVar_ isInConc $ \x -> return True
-          forkIO $ do threadDelay (60 * 10^6)
-                      modifyMVar_ isInConc $ \x -> return False
-          return ()
+
+        modifyMVar_ isInConc $ return . (+1)
+        forkIO $ do threadDelay (60 * 10^6)
+                    modifyMVar_ isInConc $
+                      \x -> return (if(x <= 0) then 0 else (x-1))
+        return ()
       )
+    {-, ((modm .|. shiftMask, xK_s), do
+        i <- io $ readMVar isInConc
+        spawn ("echo \"" ++ show i ++ "\" | xmessage -file -"))-}
     --, ((modm .|. shiftMask, xK_s), launchDocuments)
     , ((modm, xK_f), spawn "x-www-browser")
     , ((modm, xK_a), spawn "krita")
@@ -209,16 +214,15 @@ myKeys isInConc conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ let window
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), (\w -> {-focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster-} return ()))
+    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
+                                       >> windows W.shiftMaster {-return ()-}))
 
     -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+    --, ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
 
     -- mod-button3, Set the window to floating mode and resize by dragging
-    -- DISABLED: because it is annoying to me...
-    {-, ((modm, button3), (\w -> focus w >> mouseResizeWindow w
-                                       >> windows W.shiftMaster))-}
+    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
+                                       >> windows W.shiftMaster))
 
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
@@ -312,7 +316,7 @@ myStartupHook = do
 --
 main = do
   myStatusBar <- spawnPipe "xmobar"
-  isInConc <- newMVar False
+  (isInConc::MVar Int) <- newMVar (0::Int)
   xmonad $
     withUrgencyHook LibNotifyUrgencyHook $
       defaults isInConc $
@@ -327,7 +331,7 @@ main = do
 --
 
 -- def = defaultConfig
-defaults isInConc mLH = gnomeConfig {
+defaults (isInConc::MVar Int) mLH = gnomeConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -413,10 +417,10 @@ help = unlines ["The default modifier key is 'alt'. Default keybindings:",
 
 -- bindable version of `windows`
 -- MVar
-myWindows :: MVar Bool -> (WindowSet -> WindowSet) -> X ()
+myWindows :: MVar Int -> (WindowSet -> WindowSet) -> X ()
 myWindows v f = do
   isInConc <- io $ readMVar v
-  when (not isInConc) $ windows f
+  when (isInConc == 0) $ windows f
 
 
 data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
@@ -427,3 +431,4 @@ instance UrgencyHook LibNotifyUrgencyHook where
     Just idx <- fmap (W.findTag w) $ gets windowset
 
     safeSpawn "notify-send" [show name, "workspace " ++ idx]
+    --spawn $ "notify-send " ++ "ああああ"

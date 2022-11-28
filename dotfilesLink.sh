@@ -14,4 +14,5 @@ ln -sf ~/Dropbox/dotfiles/.xmobarrc ~/.xmobarrc
 ln -sf ~/Dropbox/dotfiles/.stalonetrayrc ~/.stalonetrayrc
 mkdir -p ~/.xmonad/ 2>/dev/null
 ln -sf ~/Dropbox/dotfiles/xmonad.hs ~/.xmonad/xmonad.hs
+ln -sf ~/Dropbox/dotfiles/init.vim ~/.config/nvim/init.vim
 source ~/.zshrc

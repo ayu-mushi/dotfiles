@@ -1,5 +1,5 @@
 syntax on
-highlight link EndOfBuffer Ignore
+autocmd BufEnter *.mdk :highlight link EndOfBuffer Error
 set shell=zsh
 set clipboard=unnamedplus " c・d・pをclipboardを使う様にする
 set wildmenu
@@ -26,10 +26,12 @@ call neobundle#begin(expand('~/.vim/bundle'))
 	NeoBundle 'Shougo/unite.vim'
   NeoBundle 'lambdalisue/vim-gista'
   NeoBundle 'lambdalisue/unite-linephrase'
+  NeoBundle 'jceb/vim-orgmode'
+  NeoBundle 'vim-scripts/CoqIDE'
   NeoBundle 'ElmCast/elm-vim'
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'airblade/vim-gitgutter'
-  NeoBundle 'scrooloose/syntastic'
+  " NeoBundle 'scrooloose/syntastic'
   NeoBundle 'yogsototh/haskell-vim'
   NeoBundle 'eagletmt/ghcmod-vim'
   NeoBundle 'eagletmt/neco-ghc'
@@ -40,6 +42,7 @@ call neobundle#begin(expand('~/.vim/bundle'))
   NeoBundle 'itchyny/vim-haskell-indent'
   NeoBundle 'altercation/vim-colors-solarized'
   NeoBundle 'fuenor/im_control.vim'
+  NeoBundle 'leafgarland/typescript-vim'
   NeoBundleLazy 'vim-scripts/CoqIDE', {
         \ 'autoload' : {
         \  'filetypes' : 'coq'
@@ -47,7 +50,32 @@ call neobundle#begin(expand('~/.vim/bundle'))
   NeoBundle 'rking/ag.vim'
   NeoBundle 'idris-hackers/idris-vim'
   NeoBundle 'lambdalisue/gina.vim'
+  NeoBundle 'kien/rainbow_parentheses.vim'
+  NeoBundle 'wlangstroth/vim-racket'
+  NeoBundle 'tpope/vim-dispatch'
+  NeoBundle 'tpope/vim-pathogen'
+  NeoBundle 'vim-syntastic/syntastic'
+  NeoBundleLazy 'nosami/Omnisharp', {
+\   'autoload': {'filetypes': ['cs']},
+\   'build': {
+\     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
+\     'mac': 'xbuild server/OmniSharp.sln',
+\     'unix': 'xbuild server/OmniSharp.sln',
+\     'linux': 'xbuild server/OmniSharp.sln'
+\   }
+\ }
+NeoBundle 'fsharp/vim-fsharp', {
+\ 'description': 'F# support for Vim',
+\ 'lazy': 1,
+\ 'autoload': {'filetypes': 'fsharp'},
+\ 'build': {
+\   'unix':  'make fsautocomplete',
+\ },
+\ 'build_commands': ['curl', 'make', 'mozroots', 'touch', 'unzip'],
+\}
 
+" Or, using NeoBundle
+NeoBundle 'reasonml-editor/vim-reason-plus'
 call neobundle#end()
 
 try
@@ -126,3 +154,22 @@ nnoremap <space>/ :Ag
 
 nnoremap <PageDown> <nop>
 nnoremap <PageUp> <nop>
+
+
+augroup MyAutoCmdFileType
+  autocmd! MyAutoCmdFileType
+  "...
+  autocmd Filetype scheme :RainbowParenthesesToggle
+augroup END
+
+autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+
+
+let g:OmniSharp_server_use_mono = 1
+let g:OmniSharp_selector_ui = 'unite'
